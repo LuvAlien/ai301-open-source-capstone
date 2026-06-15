@@ -48,7 +48,6 @@ src/open_range/cli.py — ensure openrange demo subcommand prints readable outpu
 Possibly modified:
 
 src/open_range/__init__.py — if hydrate_runtime_snapshot needs to be exposed publicly (or demo refactored to not need it)
->>>>>>> adb131af6819f7210199e933cb28de463b93c7d9
 
 ---
 
@@ -174,8 +173,4 @@ Using UMPIRE framework (adapted):
 
 - [Link to helpful documentation]
 - [Tutorial or Stack Overflow post that helped]
-<<<<<<< HEAD
 - [GitHub issues or discussions that helped]
-=======
-- [GitHub issues or discussions that helped]
-
