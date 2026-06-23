@@ -56,19 +56,40 @@ src/open_range/__init__.py — if hydrate_runtime_snapshot needs to be exposed p
 
 ### Environment Setup
 
-[Notes on setting up your local development environment - challenges you faced, how you solved them]
+I cloned my fork of the OpenRange repository and followed the current Quick Start instructions from the README as a first-time user on Windows. The main setup path used uv, so I checked that uv was available, ran the dependency setup, and then ran the OpenRange demo command.
+
+The main commands I used were:
+
+uv sync
+uv run openrange --help
+uv run openrange-demo
+
+The local setup worked successfully. I was able to run the OpenRange demo without setting up Docker, Kind, Helm, or a live infrastructure environment.
 
 ### Steps to Reproduce
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+1. Clone the OpenRange repository.
+2. Open the project README.
+3. Start from the Quick Start section.
+4. Run uv sync to install/sync the project dependencies.
+5. Run uv run openrange --help to confirm the CLI is available.
+6. Run uv run openrange-demo to try the offline demo.
+7. Observe the output and determine whether a newcomer would understand that the demo ran successfully.
 
 ### Reproduction Evidence
 
-- **Commit showing reproduction:** [Link to commit in your fork]
-- **Screenshots/logs:** [If applicable]
-- **My findings:** [What you discovered during reproduction]
+- **Commit showing reproduction:** https://github.com/LuvAlien/open-range
+- **Screenshots/logs:** I ran the Quick Start demo locally using:
+                        uv run openrange-demo
+                        
+                        Output:
+                        
+                        world=enterprise_saas_v1-1101
+                        snapshot=enterprise_saas_v1-1101-10565934
+                        winner=blue done=True turns=6
+                        red_reward=-0.83 blue_reward=1.2
+- **My findings:**
+  I was able to run the OpenRange demo locally, which confirms that the project can be tried through the existing Quick Start path.  However, from a newcomer perspective, the README could be improved by explaining prerequisites, what uv is, what successful output looks like, and what the demo output values mean. The current output proves the demo worked, but a new user may not immediately understand what world, snapshot, winner, turns, red_reward, and blue_reward represent.
 
 ---
 
@@ -76,31 +97,39 @@ src/open_range/__init__.py — if hydrate_runtime_snapshot needs to be exposed p
 
 ### Analysis
 
-[Your analysis of the root cause - what's causing the issue?]
+The root cause is not that OpenRange fails to run. I was able to run the Quick Start demo locally using uv run openrange-demo, and the command produced a successful world, snapshot, winner, turn count, and reward output.
+
+The issue is that the newcomer experience could be clearer. The README provides working commands, but it does not fully explain what tools are required before running them, what successful output should look like, or what the output values mean. It also includes more advanced infrastructure concepts, which can make the fastest offline demo path less obvious for a first-time user.
 
 ### Proposed Solution
 
-[High-level description of your fix approach]
+I plan to improve the README by making the quickest newcomer path easier to follow. The fix will focus on documentation first: clarifying prerequisites, highlighting the fastest offline demo command, showing expected output, and briefly explaining what the demo output means. This should help a newcomer try OpenRange in around 10 minutes and know whether they ran it successfully.
 
 ### Implementation Plan
 
 Using UMPIRE framework (adapted):
 
 **Understand:** [Restate the problem]
+The issue is that newcomers need a clearer and faster path to try OpenRange. The offline demo works, but the README should better explain how to get started, what command to run first, and how to understand the output.
 
 **Match:** [What similar patterns/solutions exist in the codebase?]
+I will review the current README, Quick Start section, demo command, and related documentation files to match the project’s existing documentation style. I will also compare how the README currently separates offline demo usage from live infrastructure setup.
 
 **Plan:** [Step-by-step implementation plan]
-1. [Modify file X to do Y]
-2. [Add function Z]
-3. [Update tests]
+1. Update README.md to make the fastest offline demo path easier to find.
+2. Add or clarify prerequisites such as Python and uv.
+3. Add the main offline demo command: uv run openrange-demo.
+4. Add an example of successful demo output.
+5. Explain the meaning of output fields such as world, snapshot, winner, turns, red_reward, and blue_reward.
+6. Clarify the difference between the offline demo path and more advanced live/Kind-backed setup if needed.
+7. Re-run the Quick Start commands to verify the updated documentation still matches the actual project behavior.
 
 **Implement:** [Link to your branch/commits as you work]
 
 **Review:** [Self-review checklist - does it follow the project's contribution guidelines?]
-
+I will keep the change focused on newcomer documentation and avoid unrelated code changes. Before opening a pull request, I will review the project’s README style and any contribution guidelines to make sure my changes match the project’s expectations.
 **Evaluate:** [How will you verify it works?]
-
+I will verify the change by following the updated Quick Start steps from the perspective of a new user. The documentation will be considered improved if a newcomer can understand what to install, what command to run, what output to expect, and how to know the demo worked.
 ---
 
 ## Testing Strategy
