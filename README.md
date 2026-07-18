@@ -262,32 +262,89 @@ I made three changes to fix the issue:
 ---
 ## Pull Request
 
-**PR Link:** [GitHub PR URL when submitted]
+**PR Link:** Unable to submit — Original repository (https://github.com/open-cybernauts/open-range) is archived by maintainers and no longer accepting pull requests.
 
-**PR Description:** [Draft or final PR description - much of the content above can be adapted]
+**PR Description (Prepared but not submitted):**
+
+### What does this PR do?
+
+This PR solves the cold-start problem for new users by making OpenRange discoverable and understandable in under 10 minutes without Docker.
+
+Three coordinated changes:
+1. **Expose `hydrate_runtime_snapshot` as public API** — allows demo.py to use clean public imports instead of private `_runtime_store` module, making it a valid code example
+2. **Add narration to demo output** — explains each phase (building world, admitting snapshot, running episode, scoring) in readable English instead of sparse JSON
+3. **Restructure README with "Try it now" first** — moves demo to the top, adds "What just happened?" explanation, creates "Go deeper" section that clearly splits offline vs. live deployment
+
+### Why was this PR needed?
+
+Issue #116 identified that newcomers bounce away without seeing working output because:
+- README leads with infrastructure requirements (Docker, Kind, Helm) instead of something immediately runnable
+- Demo uses private `_runtime_store` module (bad code example)
+- Output is cryptic JSON without explanations
+- No clear distinction between "quick offline exploration" vs "live deployment with Docker"
+
+### What are the relevant issue numbers?
+
+Closes #116
+
+### Does this PR meet the acceptance criteria?
+
+- [x] README starts with "Try it now" showing pip install + openrange demo
+- [x] Demo output narrates each phase in readable English
+- [x] Demo only imports from public API (no _runtime_store)
+- [x] Clear offline/live split in documentation
+- [x] Works in <10 minutes without Docker
+- [x] Includes copy-pasteable Python example with public API
 
 **Maintainer Feedback:**
-- [Date]: [Summary of feedback received]
-- [Date]: [How you addressed it]
 
-**Status:** [Awaiting review / Iterating / Approved / Merged]
+N/A — Repository is archived and no longer accepting contributions.
+
+**Status:** Unable to submit due to archived repository. Implementation complete and tested locally. Code changes are ready and have been committed to personal fork.
 
 ---
 
 ## Learnings & Reflections
 
+## Learnings & Reflections
+
 ### Technical Skills Gained
 
-[What you learned technically]
+1. **How to make Python code public** — Learned that you have to explicitly export things in `__init__.py` and `__all__` to make them part of the public API
+
+2. **Reading code to understand structure** — Had to look at `world_ir.py` to understand where weaknesses are stored instead of guessing
+
+3. **Windows doesn't like fancy characters** — Found out checkmarks don't work on Windows; need to use simple ASCII characters instead
+
+4. **How README structure affects people** — Realized that where you put the demo matters more than having lots of documentation
+
+5. **Git basics for open source** — Learned branching, committing, and pushing changes to a fork before making a PR
 
 ### Challenges Overcome
 
-[What was hard and how you solved it]
+1. **Weakness counting was wrong** — Tried to count weaknesses per service but they're actually stored at the world level. Fixed it by reading the data model code.
+
+2. **Checkmark character broke on Windows** — Demo output had a checkmark (✓) that failed on my computer. Changed it to a plus sign (+) which works everywhere.
+
+3. **Output narration was too hard to get right** — Tried to explain everything at first, but that was too much. Settled on one line per phase with just the important numbers.
+
+4. **Git merge conflict** — GitHub had changes that conflicted with my local file. Learned to use `git checkout --ours` to keep my version.
+
+5. **Original repo was archived** — Couldn't submit a PR because the project is no longer accepting contributions. Had to document this instead.
 
 ### What I'd Do Differently Next Time
 
-[Reflection on your process]
+1. **Check if the repo is still active** — Would verify the project is accepting PRs before spending time on the whole thing.
 
+2. **Test on Windows earlier** — Would have run the demo on Windows sooner instead of discovering encoding issues at the end.
+
+3. **Ask for help with testing** — Wasted time trying to install pytest. Should have asked how to run tests instead of guessing.
+
+4. **Keep the demo example simpler** — The narration code could be cleaner. Would think more about how someone copying this example would use it.
+
+5. **Document why I made certain choices** — Would explain in code comments why I kept narration in the demo instead of a separate file.
+
+---
 ---
 
 ## Resources Used
