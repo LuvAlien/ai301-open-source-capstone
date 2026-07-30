@@ -39,22 +39,42 @@ The affected component is likely the section of the static homepage that renders
 
 ### Environment Setup
 
-TBD — to be completed during Phase II after creating a new working branch, opening the site locally, and inspecting the affected heading in the browser.
+I updated my local `buttons-rescue` fork to match the current upstream version of the repository, then created a new working branch for issue #18.
+
+* **Repository:** https://github.com/LuvAlien/buttons-rescue
+* **Working branch:** https://github.com/LuvAlien/buttons-rescue/tree/fix-heading-spacing
+* **Original issue:** https://github.com/robby5000/buttons-rescue/issues/18
+
+Since this project is a static website, I reproduced the issue by opening the `index.html` file directly in the browser:
+
+```powershell
+start index.html
+```
+
+I also reviewed the codebase manually and located the affected heading in `index.html` inside the `story-copy` section:
+
+```html
+<div class="story-copy">
+  <h2 id="story-title">A calm companion with a curious streak.</h2>
+  <p>Buttons likes gentle company, window watching, and naps that last until dinner. He takes a little time to trust, but once he does, he will follow you from room to room and settle close by.</p>
+  <p>He would thrive in a peaceful home with someone who understands that the best friendships are never rushed.</p>
+</div>
+```
 
 ### Steps to Reproduce
 
-1. Clone or open the `buttons-rescue` repository locally.
-2. Open the project in VS Code.
-3. Open `index.html` in the browser.
-4. Locate the heading text “A calm companion with a curious streak.”
-5. Observe the spacing of the heading.
-6. Confirm that the wording appears too close together compared to the expected visual spacing.
+1. Open the `buttons-rescue` project locally.
+2. Open `index.html` in the browser.
+3. Scroll to the “His Story” section.
+4. Locate the heading: “A calm companion with a curious streak.”
+5. Observe that the heading text appears visually too close together and cramped.
+6. Inspect the related markup in `index.html` to identify the affected heading.
 
 ### Reproduction Evidence
 
-* **Branch link:** TBD — to be added during Phase II.
-* **Screenshots/logs:** TBD — screenshot will be added after reproducing locally.
-* **My findings:** TBD — to be completed after inspecting the heading and identifying the relevant HTML/CSS.
+* **Branch link:** https://github.com/LuvAlien/buttons-rescue/tree/fix-heading-spacing
+* **Screenshot:** I captured a screenshot showing the “His Story” section where the heading “A calm companion with a curious streak” appears compressed.
+* **My findings:** The issue is reproducible locally. The affected heading is rendered in the `story-copy` section of `index.html` using the `h2` element with the ID `story-title`.
 
 ---
 
@@ -62,40 +82,57 @@ TBD — to be completed during Phase II after creating a new working branch, ope
 
 ### Analysis
 
-TBD — to be completed during Phase II after I locate the exact HTML and CSS responsible for the heading spacing.
+The issue appears to be a visual spacing problem with the heading text in the “His Story” section. The heading is large and wraps across multiple lines, but the spacing between the words and/or lines appears too tight. This makes the heading look cramped and less readable.
+
+The affected markup is:
+
+```html
+<h2 id="story-title">A calm companion with a curious streak.</h2>
+```
+
+Since the heading uses the `id="story-title"`, the fix will likely involve locating the CSS rule for `#story-title` or the related `.story-copy h2` styling and adjusting the spacing. The most likely CSS properties involved are `line-height`, `letter-spacing`, `word-spacing`, `max-width`, or related layout spacing.
 
 ### Proposed Solution
 
-My likely solution will be to adjust the styling for the heading so the wording has better spacing. Depending on the current code, this may involve updating margin, padding, line height, letter spacing, or the surrounding layout.
+I plan to improve the visual spacing of the heading by adjusting the CSS that controls the `story-title` heading. I will keep the change focused on the heading spacing issue and avoid changing unrelated content or layout sections.
+
+The likely solution is to increase the heading’s spacing using one or more of the following, depending on the existing CSS:
+
+* `line-height`
+* `letter-spacing`
+* `word-spacing`
+* margin or spacing around the heading
+* width/max-width if the text wrapping is causing the cramped appearance
 
 ### Implementation Plan
 
 Using UMPIRE framework:
 
 **Understand:**
-The issue is that the heading “A calm companion with a curious streak” appears too close together and needs improved spacing.
+The “His Story” heading currently reads “A calm companion with a curious streak,” but the wording appears too close together visually. The expected behavior is for the heading to have cleaner spacing and better readability.
 
 **Match:**
-I will inspect the existing HTML and CSS to see how this heading is structured and how similar headings or text sections are styled elsewhere in the project.
+I will inspect the existing CSS for `#story-title`, `.story-copy`, and other large headings in the project to understand the design style already being used. I will match the project’s existing visual style instead of introducing a major design change.
 
 **Plan:**
 
-1. Create a new working branch for issue #18.
-2. Open the site locally using `index.html`.
-3. Locate the heading “A calm companion with a curious streak” in the codebase.
-4. Identify the HTML and CSS controlling the heading’s spacing.
-5. Make a small focused styling adjustment.
-6. Refresh the page and confirm the heading has improved spacing.
-7. Check that the change does not negatively affect nearby layout or responsive behavior.
+1. Open `index.html` locally and reproduce the spacing issue.
+2. Locate the affected heading in `index.html`.
+3. Search the CSS file for `#story-title`, `.story-copy`, or related heading styles.
+4. Identify which CSS property is causing the heading to appear cramped.
+5. Make a small focused spacing adjustment.
+6. Refresh the local page and compare the heading before and after the change.
+7. Check that the update does not negatively affect nearby paragraphs or the overall layout.
+8. Capture an updated screenshot after the fix.
 
 **Implement:**
-TBD — branch link will be added during Phase II.
+Branch: https://github.com/LuvAlien/buttons-rescue/tree/fix-heading-spacing
 
 **Review:**
-I will keep the change focused on the heading spacing issue and review the diff to make sure I do not include unrelated formatting, content changes, or unnecessary file changes.
+I will review the Git diff before committing to make sure the change only affects the heading spacing issue. I will avoid unrelated formatting, text, or layout changes.
 
 **Evaluate:**
-I will manually verify the fix by reopening the page locally and confirming that the heading text has improved spacing while the rest of the page layout remains intact.
+I will manually verify the fix by reopening `index.html` in the browser and confirming that the “A calm companion with a curious streak” heading has improved spacing while the rest of the “His Story” section still looks correct.
 
 ---
 
@@ -103,21 +140,22 @@ I will manually verify the fix by reopening the page locally and confirming that
 
 ### Unit Tests
 
-* [ ] Not applicable at this stage because the issue appears to be a static visual styling issue.
+* [ ] Not applicable because this issue is a static visual styling issue.
 
 ### Integration Tests
 
-* [ ] Not applicable unless the project includes an existing UI or visual test workflow.
+* [ ] Not applicable unless the project includes an existing UI or visual regression test workflow.
 
 ### Manual Testing
 
-I will manually test by:
+I will manually test the fix by:
 
 1. Opening `index.html` locally in the browser.
-2. Locating the heading “A calm companion with a curious streak.”
-3. Comparing the spacing before and after the styling change.
-4. Confirming the heading is easier to read and visually cleaner.
-5. Checking that nearby text, layout, and responsive behavior remain intact.
+2. Navigating to the “His Story” section.
+3. Confirming that the heading “A calm companion with a curious streak” has improved spacing.
+4. Checking that the paragraph text below the heading is still aligned and readable.
+5. Checking that the design still looks consistent with the rest of the page.
+6. Taking a screenshot after the fix as evidence.
 
 ---
 
