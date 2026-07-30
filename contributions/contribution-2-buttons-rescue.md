@@ -38,50 +38,80 @@ The affected component is likely the page or section that renders the “Bring B
 
 ### Environment Setup
 
-[Notes on setting up your local development environment - challenges you faced, how you solved them]
+I cloned my fork of the buttons-rescue repository and created a working branch for this issue.
+
+Repository: https://github.com/LuvAlien/buttons-rescue
+Working branch: https://github.com/LuvAlien/buttons-rescue/tree/fix-bring-buttons-order
+
+To understand the project before making any changes, I reviewed the codebase myself and also used Claude to help explain the structure of the files and identify where the homepage content was being rendered. I used AI as a code-reading assistant, but I verified the issue manually by running the project locally and inspecting the HTML myself.
+
+Since this project is a static website, I reproduced the site locally by opening the index.html file directly in the browser:
+
+start index.html
 
 ### Steps to Reproduce
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+1. Clone the buttons-rescue repository.
+2. Open the project locally in VS Code.
+3. Open index.html in the browser using start index.html.
+4. Scroll to the “Bring Buttons home” section.
+5. Observe the order of the numbered steps.
+6. Confirm that the section displays the steps as 01, 03, 02 instead of the expected order 01, 02, 03.
 
 ### Reproduction Evidence
 
-- **Commit showing reproduction:** [Link to commit in your fork]
-- **Screenshots/logs:** [If applicable]
+- **Commit showing reproduction:** (https://github.com/LuvAlien/buttons-rescue/tree/fix-bring-buttons-order)
+- **Screenshots/logs:** I captured a screenshot showing the “Bring Buttons home” section displaying the steps in the incorrect order.
 - **My findings:** [What you discovered during reproduction]
+The issue is reproducible locally. The page displays:
+01 — Talk it over
+03 — Come say hello
+02 — Apply to adopt
 
+The expected sequence should be:
+
+01 — Talk it over
+02 — Apply to adopt
+03 — Come say hello
+
+After reviewing the codebase, I located the issue in index.html, around lines 70–85. The problem appears to be caused by the order of the two <li> elements containing the 02 and 03 steps.
 ---
 
 ## Solution Approach
 
 ### Analysis
 
-[Your analysis of the root cause - what's causing the issue?]
+The root cause appears to be that the list items in the “Bring Buttons home” section are written in the wrong order in the HTML. The content for step 03 appears before the content for step 02, which causes the page to display the adoption steps as 01, 03, 02.
 
+This does not appear to require a large logic change or new functionality. The issue is likely a static content ordering bug in the homepage markup.
 ### Proposed Solution
 
-[High-level description of your fix approach]
+I plan to fix the issue by switching the order of the two <li> elements that contain the 02 and 03 steps in index.html. After making the change, I will reopen the page locally and confirm that the “Bring Buttons home” section now displays in the correct order: 01, 02, 03.
 
 ### Implementation Plan
 
 Using UMPIRE framework (adapted):
 
-**Understand:** [Restate the problem]
+**Understand:** The “Bring Buttons home” section currently displays the steps out of order. The current order is 01, 03, 02, but the expected order is 01, 02, 03.
 
-**Match:** [What similar patterns/solutions exist in the codebase?]
+**Match:** I reviewed the homepage structure and found that this section is rendered directly in index.html. Since the numbered steps are static HTML list items, the fix should follow the existing markup style instead of introducing new logic.
 
-**Plan:** [Step-by-step implementation plan]
-1. [Modify file X to do Y]
-2. [Add function Z]
-3. [Update tests]
+*Plan:** [Step-by-step implementation plan]
+1. Open index.html.
+2. Locate the “Bring Buttons home” section around lines 70–85.
+3. Identify the <li> element for step 02.
+4. Identify the <li> element for step 03.
+5. Move the step 02 list item above the step 03 list item.
+6. Save the file.
+7. Reopen or refresh index.html in the browser.
+8. Verify that the section now displays 01, 02, 03.
+9. Check that the layout, spacing, and text still look correct after the change.
 
-**Implement:** [Link to your branch/commits as you work]
+**Implement:** Branch: https://github.com/LuvAlien/buttons-rescue/tree/fix-bring-buttons-order
 
-**Review:** [Self-review checklist - does it follow the project's contribution guidelines?]
+**Review:** I will review the diff before committing to make sure the only change is the ordering of the affected list items. I will avoid changing unrelated formatting, styling, or content.
 
-**Evaluate:** [How will you verify it works?]
+**Evaluate:** I will manually test the fix by reopening the local index.html page and confirming that the “Bring Buttons home” section displays in the correct order. I will compare the page visually before and after the change to make sure the issue is resolved without breaking the design.
 
 ---
 
@@ -89,14 +119,11 @@ Using UMPIRE framework (adapted):
 
 ### Unit Tests
 
-- [ ] Test case 1: [Description]
-- [ ] Test case 2: [Description]
-- [ ] Test case 3: [Description]
+Not applicable at this stage because the issue appears to be a static HTML ordering bug and the project does not appear to require a unit test for this content change.
 
 ### Integration Tests
 
-- [ ] Integration scenario 1
-- [ ] Integration scenario 2
+Not applicable at this stage unless the project has an existing automated UI/page test workflow.
 
 ### Manual Testing
 

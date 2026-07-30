@@ -184,7 +184,7 @@ I changed the rule to `transform: none;`, then reopened `index.html` locally to 
 ### Code Changes
 
 - **Files modified:** `style.css`
-- **Key commits:** TBD — add commit link after pushing
+- **Key commits:** https://github.com/LuvAlien/buttons-rescue/tree/fix-heading-spacing
 - **Approach decisions:** I kept the fix focused on the visual spacing issue by only changing the `.story-copy` transform rule. I avoided changing the HTML content or unrelated layout styles.
 
 
@@ -192,15 +192,16 @@ I changed the rule to `transform: none;`, then reopened `index.html` locally to 
 
 ## Pull Request
 
-**PR Link:** TBD
+**PR Link:** https://github.com/robby5000/buttons-rescue/pull/23
 
-**PR Description:** TBD
+**PR Description:**
+
+The pull request fixes the heading spacing issue in the “His Story” section by updating the `.story-copy` CSS rule from `transform: translateX(38%);` to `transform: none;`. This keeps the story text aligned within the page layout and prevents the heading from appearing cramped or pushed too far to the right.
 
 **Maintainer Feedback:**
+- TBD — awaiting maintainer review.
 
-* TBD
-
-**Status:** Not submitted yet.
+**Status:** Awaiting review
 
 ---
 
@@ -208,15 +209,15 @@ I changed the rule to `transform: none;`, then reopened `index.html` locally to 
 
 ### Technical Skills Gained
 
-TBD
+The primary skills learned from this contribution was bettering my skills with git, getting better at adjusting to maintainer feedback and strengthing my ability with CSS.
 
 ### Challenges Overcome
 
-TBD
+I overcame the struggles of having to switch issues mid-day and learning how to navigate a newer beginner friendly codebase without overcomplicating it.
 
 ### What I'd Do Differently Next Time
 
-TBD
+Next time I would be organized in my steps, and ensure to take everything one thing at a time instead of doing everything all at once.
 
 ---
 
@@ -224,3 +225,5 @@ TBD
 
 * GitHub issue: https://github.com/robby5000/buttons-rescue/issues/18
 * Repository: https://github.com/robby5000/buttons-rescue
+* W3Schools: https://www.w3schools.com/cssref/css3_pr_transform.php
+* Claude: claude.ai
