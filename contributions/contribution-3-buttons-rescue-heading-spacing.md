@@ -76,6 +76,8 @@ I also reviewed the codebase manually and located the affected heading in `index
 * **Screenshot:** I captured a screenshot showing the “His Story” section where the heading “A calm companion with a curious streak” appears compressed.
 * **My findings:** The issue is reproducible locally. The affected heading is rendered in the `story-copy` section of `index.html` using the `h2` element with the ID `story-title`.
 
+Update -  I located the affected section in `index.html` and found that the layout issue came from the CSS rule for `.story-copy`.
+
 ---
 
 ## Solution Approach
@@ -92,17 +94,19 @@ The affected markup is:
 
 Since the heading uses the `id="story-title"`, the fix will likely involve locating the CSS rule for `#story-title` or the related `.story-copy h2` styling and adjusting the spacing. The most likely CSS properties involved are `line-height`, `letter-spacing`, `word-spacing`, `max-width`, or related layout spacing.
 
+Update initial assumption wrong The root cause was the `.story-copy` CSS rule near the bottom of the stylesheet:
+
+```css
+.story-copy {
+  transform: translateX(38%);
+}
+This transform shifted the entire story text section to the right, causing the heading to appear too close together and partially cut off. Removing or neutralizing this transform allows the story section to align normally within the existing grid layout.
+
 ### Proposed Solution
 
-I plan to improve the visual spacing of the heading by adjusting the CSS that controls the `story-title` heading. I will keep the change focused on the heading spacing issue and avoid changing unrelated content or layout sections.
+```md
+I changed the `.story-copy` rule from `transform: translateX(38%);` to `transform: none;`. This keeps the story text in its intended layout position and fixes the cramped heading appearance without changing the HTML content.
 
-The likely solution is to increase the heading’s spacing using one or more of the following, depending on the existing CSS:
-
-* `line-height`
-* `letter-spacing`
-* `word-spacing`
-* margin or spacing around the heading
-* width/max-width if the text wrapping is causing the cramped appearance
 
 ### Implementation Plan
 
@@ -151,7 +155,7 @@ I will manually verify the fix by reopening `index.html` in the browser and conf
 I will manually test the fix by:
 
 1. Opening `index.html` locally in the browser.
-2. Navigating to the “His Story” section.
+2. Navigating to the “His Story” section in CSS.
 3. Confirming that the heading “A calm companion with a curious streak” has improved spacing.
 4. Checking that the paragraph text below the heading is still aligned and readable.
 5. Checking that the design still looks consistent with the rest of the page.
