@@ -175,6 +175,19 @@ I selected this issue after my previous selected `buttons-rescue` issue was clos
 * **Key commits:** TBD
 * **Approach decisions:** TBD
 
+### Week 1 Progress Phase III
+
+I implemented the fix for issue #18 in the `buttons-rescue` repository. After reproducing the issue locally, I found that the `.story-copy` CSS rule was applying `transform: translateX(38%);`, which pushed the “His Story” text section too far to the right and caused the heading to appear cramped.
+
+I changed the rule to `transform: none;`, then reopened `index.html` locally to verify that the heading “A calm companion with a curious streak” displayed with better spacing and was no longer cut off.
+
+### Code Changes
+
+- **Files modified:** `style.css`
+- **Key commits:** TBD — add commit link after pushing
+- **Approach decisions:** I kept the fix focused on the visual spacing issue by only changing the `.story-copy` transform rule. I avoided changing the HTML content or unrelated layout styles.
+
+
 ---
 
 ## Pull Request
